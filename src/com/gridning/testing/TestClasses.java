@@ -1,4 +1,4 @@
-package com.gridnine.testing;
+package com.gridning.testing;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -73,7 +73,7 @@ class Segment {
 class Flight {
     private final List<Segment> segments;
 
-    Flight(final List<Segment> segs) {
+    Flight( List<Segment> segs) {
         segments = segs;
     }
 
