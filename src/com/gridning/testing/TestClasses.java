@@ -87,6 +87,3 @@ class Flight {
                 .collect(Collectors.joining(" "));
     }
 }
-
-
-

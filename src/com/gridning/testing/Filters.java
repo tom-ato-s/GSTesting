@@ -1,5 +1,6 @@
-package com.gridning.testing;
+// Интерфейс с методом filter
 
+package com.gridning.testing;
 import java.util.List;
 
 public interface Filters {

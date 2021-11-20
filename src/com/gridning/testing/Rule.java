@@ -1,8 +1,6 @@
 ////Абстактный класс, материнский для правил/фильтров
 
 package com.gridning.testing;
-
-import java.util.ArrayList;
 import java.util.List;
 
     abstract class Rule implements Filters{

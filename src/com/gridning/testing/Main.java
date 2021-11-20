@@ -6,17 +6,20 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-
+        //создание полетов в Лист
         List<Flight> flights = FlightBuilder.createFlights(); //создали полеты и поместили в Лист
 
-        FBeforeTimeNow1 fBeforeTimeNow1 = new FBeforeTimeNow1(); // создание 1 фильтра/правила
-        FComparDepArrive2 fComparDepArrive2 = new FComparDepArrive2(); // создание 2 фильта/правила
-        FTimeBetweenSegment3 fTimeBetweenSegment3 = new FTimeBetweenSegment3(); // создание 3 фильта/правила
+        //создание фильтров
+        FBeforeTimeNow1 fBeforeTimeNow1 = new FBeforeTimeNow1();
+        FComparDepArrive2 fComparDepArrive2 = new FComparDepArrive2();
+        FTimeBetweenSegment3 fTimeBetweenSegment3 = new FTimeBetweenSegment3();
 
-
-        List<Flight> one = fBeforeTimeNow1.filter(flights); // проверка первого правила
-        List<Flight> two = fComparDepArrive2.filter(flights); // проверка второго правила
+        //применение фильтров
+        List<Flight> one = fBeforeTimeNow1.filter(flights);
+        List<Flight> two = fComparDepArrive2.filter(flights);
         List<Flight> thee = fTimeBetweenSegment3.filter(flights);
+
+        // печать результатов
         System.out.println("Filter fBeforeTimeNow1 result:");
         Print.printFlights(one);
         System.out.println("Filter fComparDepArrive2 result");
@@ -27,8 +30,8 @@ public class Main {
 
 }
 
-class Print{
-    public static void printFlights(List<Flight> filterList) { //общий метод печати перелетов после фильтрации
+class Print{  // класс для печати результатов
+    public static void printFlights(List<Flight> filterList) {
         if (filterList.isEmpty()) {
             System.out.println("Лист перелетов пуст");
         }else {
