@@ -1,91 +1,6 @@
 package com.gridnine.testing;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
-
-class FlightBuilder {
-    static List<Flight> createFlights() {
-        LocalDateTime threeDaysFromNow = LocalDateTime.now().plusDays(3);
-        return Arrays.asList(
-                //A normal flight with two hour duration
-                createFlight(threeDaysFromNow, threeDaysFromNow.plusHours(2)),
-                //A normal multi segment flight
-                createFlight(threeDaysFromNow, threeDaysFromNow.plusHours(2),
-                        threeDaysFromNow.plusHours(3), threeDaysFromNow.plusHours(5)),
-                //A flight departing in the past
-                createFlight(threeDaysFromNow.minusDays(6), threeDaysFromNow),
-                //A flight that departs before it arrives
-                createFlight(threeDaysFromNow, threeDaysFromNow.minusHours(6)),
-                //A flight with more than two hours ground time
-                createFlight(threeDaysFromNow, threeDaysFromNow.plusHours(2),
-                        threeDaysFromNow.plusHours(5), threeDaysFromNow.plusHours(6)),
-                //Another flight with more than two hours ground time
-                createFlight(threeDaysFromNow, threeDaysFromNow.plusHours(2),
-                        threeDaysFromNow.plusHours(3), threeDaysFromNow.plusHours(4),
-                        threeDaysFromNow.plusHours(6), threeDaysFromNow.plusHours(7)));
-    }
-
-    private static Flight createFlight(final LocalDateTime... dates) {
-        if ((dates.length % 2) != 0) {
-            throw new IllegalArgumentException(
-                    "you must pass an even number of dates");
-        }
-        List<Segment> segments = new ArrayList<>(dates.length / 2);
-        for (int i = 0; i < (dates.length - 1); i += 2) {
-            segments.add(new Segment(dates[i], dates[i + 1]));
-        }
-        return new Flight(segments);
-    }
-}
-
-class Segment {
-    private final LocalDateTime departureDate;
-
-    private final LocalDateTime arrivalDate;
-
-    Segment(final LocalDateTime dep, final LocalDateTime arr) {
-        departureDate = Objects.requireNonNull(dep);
-        arrivalDate = Objects.requireNonNull(arr);
-    }
-
-    LocalDateTime getDepartureDate() {
-        return departureDate;
-    }
-
-    LocalDateTime getArrivalDate() {
-        return arrivalDate;
-    }
-
-    @Override
-    public String toString() {
-        DateTimeFormatter fmt =
-                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        return '[' + departureDate.format(fmt) + '|' + arrivalDate.format(fmt)
-                + ']';
-    }
-}
-
-
-class Flight {
-    private final List<Segment> segments;
-
-    Flight(final List<Segment> segs) {
-        segments = segs;
-    }
-
-    List<Segment> getSegments() {
-        return segments;
-    }
-
-    @Override
-    public String toString() {
-        return segments.stream().map(Object::toString)
-                .collect(Collectors.joining(" "));
-    }
-}
-
 
 
 public class Main {
@@ -94,13 +9,15 @@ public class Main {
 
         List<Flight> flights = FlightBuilder.createFlights(); //создали полеты и поместили в Лист
 
-        FBeforeTimeNow fBeforeTimeNow = new FBeforeTimeNow(); // создание первого фильтра/правила
-        FComparDepArrive fComparDepArrive = new FComparDepArrive(); // создание второго фильта/правила
+        FBeforeTimeNow1 fBeforeTimeNow1 = new FBeforeTimeNow1(); // создание 1 фильтра/правила
+        FComparDepArrive2 fComparDepArrive2 = new FComparDepArrive2(); // создание 2 фильта/правила
+        FTimeBetweenSegment3_1 fTimeBetweenSegment3_1 = new FTimeBetweenSegment3_1(); // создание 3.1 фильта/правила
+        FTimeBetweenSegment3_2 fTimeBetweenSegment3_2 = new FTimeBetweenSegment3_2();
 
-        List<Flight> list = fBeforeTimeNow.filter(flights); // проверка первого правила
-        Rule.printFlight(list);
-        fComparDepArrive.filter(flights); // проверка второго правила
-
+        List<Flight> list = fBeforeTimeNow1.filter(flights); // проверка первого правила
+        fComparDepArrive2.filter(flights); // проверка второго правила
+        fTimeBetweenSegment3_1.filter(flights);
+        fTimeBetweenSegment3_2.filter(flights);
     }
 
 }
