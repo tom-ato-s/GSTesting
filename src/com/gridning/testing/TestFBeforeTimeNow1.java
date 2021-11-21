@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.lang.model.type.NullType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,17 +27,19 @@ public class TestFBeforeTimeNow1 {
         Assert.assertEquals(execut, result);
     }
 
-    // Проверять пустой ли входящий Лист полетов
-    @Test (expected = NullPointerException.class)
-    public void emptyEnterList() throws NullPointerException {
-        List<Flight> ex = Collections.EMPTY_LIST;
-        Assert.assertEquals(ex, result);
+
+    // Проверять на AssertionError пустой список
+    @Test (expected = AssertionError.class)
+    public void emptyEnterList_for_rm() throws NullPointerException {
+        List<Flight> ex = List.of();
+        Assert.assertEquals((ex) , result);
     }
-    // Проверять пустой ли входящий Лист сегментов
-    @Test (expected = NullPointerException.class)
-    public void emptySegmentsList() throws Exception {
+
+    // Проверять AssertionError Лист сегментов
+    @Test (expected = AssertionError.class)
+    public void emptySegmentsList() throws NullPointerException {
         List<Flight> ex = new ArrayList<>();
-        List<Segment> segments = Collections.EMPTY_LIST;
+        List<Segment> segments =  List.of();
         Flight flight = new Flight(segments);
         execut.add(flight);
         ex.addAll(execut);

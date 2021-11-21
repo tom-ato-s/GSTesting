@@ -6,21 +6,22 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestFComparDepArrive2 {
+public class TestFTimeBetweenSegment3 {
     private List<Flight> execut = new ArrayList<>();
     List<Flight> flights;
     List<Flight> result;
+
     //генерация данных перед проверкой
     @Before
     public void testBefore() {
         flights = FlightBuilder.createFlights();
-        execut.add(flights.get(3));
+        execut.add(flights.get(4));
     }
 
     @Test
-    public void testFilterAll() {
-        FComparDepArrive2 fComparDepArrive2 = new FComparDepArrive2();
-        result = fComparDepArrive2.filter(flights);
+    public void testFilter() {
+        FTimeBetweenSegment3 fTimeBetweenSegment3_1 = new FTimeBetweenSegment3();
+        result = fTimeBetweenSegment3_1.filter(flights);
         Assert.assertEquals(execut, result);
     }
 
