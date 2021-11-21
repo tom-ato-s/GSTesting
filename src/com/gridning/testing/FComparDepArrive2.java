@@ -14,14 +14,16 @@ class FComparDepArrive2 extends Rule {
     public List<Flight> filter(List<Flight> allList) {
         //создаем исходящий массив
         filterList = new ArrayList<>();
+        // проверка пустой ли лист полетов
+        if(allList.isEmpty()) return filterList;
         //перебор по всем полетам
         for (Flight flight : allList) { // перебор по всем полетам
-            // проверка пустой ли лист полетов
-            if(allList.isEmpty()) break;
             listSegments = flight.getSegments();
-            // перебор по всем сегментам полета
+            // проверка пустой ли лист сегментов
+            if(listSegments.isEmpty()) continue;
+            // перебор по всем сегментам полетя
             for (Segment segment : listSegments) {
-                if(listSegments.isEmpty()) break;
+                //из сегмента значения отлета и прилета присваеваем переменным
                 LocalDateTime dep = segment.getDepartureDate();
                 LocalDateTime arr = segment.getArrivalDate();
                 // сравнение даты прилета и отлета

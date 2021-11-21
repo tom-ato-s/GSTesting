@@ -14,20 +14,22 @@ class FBeforeTimeNow1 extends Rule{
     public List<Flight> filter(List<Flight> allList) {
         //создаем исходящий массив
         filterList = new ArrayList<>();
-        //перебор по всем полетам
+        // проверка пустой ли лист полетов
+        if(allList.isEmpty()){
+           // throw new NullPointerException ("Error");}
+            return filterList;}
+            //перебор по всем полетам
         for(Flight flight: allList) {
-            // проверка пустой ли лист полетов
-            if(allList.isEmpty()) break;
             listSegments = flight.getSegments();
+            // проверка пустой ли лист сегментов
+            if(listSegments.isEmpty()) continue;
             //перебор по всем сегментам полета
             for (Segment segment : listSegments) {
-                // проверка пустой ли лист сегментов
-                if(listSegments.isEmpty()) break;
                 LocalDateTime departureDate = segment.getDepartureDate();
                 LocalDateTime nowTime = LocalDateTime.now();
-                // сравниваем дату отправления и текущую дату
+                // Если время отправления в сегменте раньше текущего времени
                 if(departureDate.isBefore(nowTime)) {
-                    // если true условиям - добавляем полет в лист
+                    // добавляем полет в лист
                     addFlight(flight);
                 }
             }

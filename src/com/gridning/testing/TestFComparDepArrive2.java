@@ -10,7 +10,7 @@ public class TestFComparDepArrive2 {
     private List<Flight> execut = new ArrayList<>();
     List<Flight> flights;
     List<Flight> result;
-
+    //генерация данных перед проверкой
     @Before
     public void testBefore() {
         flights = FlightBuilder.createFlights();

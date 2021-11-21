@@ -11,6 +11,7 @@ public class TestFTimeBetweenSegment3_1 {
     List<Flight> flights;
     List<Flight> result;
 
+    //генерация данных перед проверкой
     @Before
     public void testBefore() {
         flights = FlightBuilder.createFlights();
